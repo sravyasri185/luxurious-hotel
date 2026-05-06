@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aurum Palace — Luxury Hotel</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">
+      <span class="logo-mark">✦</span>
+      <span class="logo-text">AURUM <em>Palace</em></span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#restaurant">Dining</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#booking" class="nav-cta">Book Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger">&#9776;</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="hero-shapes">
+        <div class="shape s1"></div>
+        <div class="shape s2"></div>
+        <div class="shape s3"></div>
+      </div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Est. 1924 · Five Star Excellence</p>
+      <h1 class="hero-title">Where Luxury<br/><em>Becomes Legend</em></h1>
+      <p class="hero-sub">Experience unparalleled elegance in the heart of the city. Every detail crafted for those who demand nothing but the finest.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn-gold">Reserve Your Suite</a>
+        <a href="#rooms" class="btn-ghost">Explore Rooms</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">98</span><span class="stat-label">Suites</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">5★</span><span class="stat-label">Rating</span></div>
+        <div class="stat-div"></div>
+        <div class="stat"><span class="stat-num">100</span><span class="stat-label">Years Legacy</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- BOOKING BAR -->
+  <section class="booking-bar" id="booking">
+    <div class="booking-header">
+      <h2>Reserve Your Stay</h2>
+      <p>Check availability and get instant pricing</p>
+    </div>
+    <div class="booking-form">
+      <div class="form-group">
+        <label>Check In</label>
+        <input type="date" id="checkIn" onchange="calculatePrice()"/>
+      </div>
+      <div class="form-group">
+        <label>Check Out</label>
+        <input type="date" id="checkOut" onchange="calculatePrice()"/>
+      </div>
+      <div class="form-group">
+        <label>Guests</label>
+        <select id="guests" onchange="calculatePrice()">
+          <option value="1">1 Guest</option>
+          <option value="2" selected>2 Guests</option>
+          <option value="3">3 Guests</option>
+          <option value="4">4 Guests</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Room Type</label>
+        <select id="roomType" onchange="calculatePrice()">
+          <option value="deluxe">Deluxe Room</option>
+          <option value="junior">Junior Suite</option>
+          <option value="royal">Royal Suite</option>
+          <option value="presidential">Presidential Suite</option>
+        </select>
+      </div>
+      <button class="btn-gold booking-btn" onclick="bookNow()">Check Availability</button>
+    </div>
+    <!-- Price Calculator Result -->
+    <div class="price-result" id="priceResult" style="display:none;">
+      <div class="price-breakdown" id="priceBreakdown"></div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <section class="rooms-section" id="rooms">
+    <div class="section-header">
+      <p class="section-eyebrow">Accommodation</p>
+      <h2 class="section-title">Our <em>Finest</em> Rooms</h2>
+      <p class="section-sub">Each room is a sanctuary of comfort and elegance</p>
+    </div>
+    <div class="rooms-grid" id="roomsGrid"></div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="gallery">
+    <div class="section-header">
+      <p class="section-eyebrow">Visual Journey</p>
+      <h2 class="section-title">The <em>Aurum</em> Experience</h2>
+    </div>
+    <div class="gallery-tabs">
+      <button class="tab-btn active" onclick="filterGallery('all', this)">All</button>
+      <button class="tab-btn" onclick="filterGallery('rooms', this)">Rooms</button>
+      <button class="tab-btn" onclick="filterGallery('dining', this)">Dining</button>
+      <button class="tab-btn" onclick="filterGallery('spa', this)">Spa & Pool</button>
+      <button class="tab-btn" onclick="filterGallery('lobby', this)">Lobby</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- RESTAURANT -->
+  <section class="restaurant-section" id="restaurant">
+    <div class="restaurant-hero">
+      <div class="restaurant-text">
+        <p class="section-eyebrow">Fine Dining</p>
+        <h2 class="section-title">L'Or <em>Restaurant</em></h2>
+        <p class="restaurant-desc">Our Michelin-starred kitchen fuses classical French technique with the finest local ingredients. An experience for all the senses.</p>
+        <div class="restaurant-meta">
+          <span>🕐 Open 7am – 11pm</span>
+          <span>📞 +1 (800) 287-6742</span>
+        </div>
+      </div>
+      <div class="menu-tabs">
+        <button class="menu-tab active" onclick="showMenu('breakfast', this)">Breakfast</button>
+        <button class="menu-tab" onclick="showMenu('lunch', this)">Lunch</button>
+        <button class="menu-tab" onclick="showMenu('dinner', this)">Dinner</button>
+        <button class="menu-tab" onclick="showMenu('drinks', this)">Drinks</button>
+      </div>
+    </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section" id="reviews">
+    <div class="section-header">
+      <p class="section-eyebrow">Guest Stories</p>
+      <h2 class="section-title">What They <em>Say</em></h2>
+      <div class="overall-rating">
+        <div class="big-rating">4.9</div>
+        <div class="rating-details">
+          <div class="stars-row">★★★★★</div>
+          <p>Based on 2,847 reviews</p>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <!-- Add Review -->
+    <div class="add-review">
+      <h3>Share Your Experience</h3>
+      <div class="star-selector" id="starSelector">
+        <span class="star-pick" data-val="1" onclick="selectStar(1)">★</span>
+        <span class="star-pick" data-val="2" onclick="selectStar(2)">★</span>
+        <span class="star-pick" data-val="3" onclick="selectStar(3)">★</span>
+        <span class="star-pick" data-val="4" onclick="selectStar(4)">★</span>
+        <span class="star-pick" data-val="5" onclick="selectStar(5)">★</span>
+      </div>
+      <div class="review-inputs">
+        <input type="text" id="reviewName" placeholder="Your name"/>
+        <textarea id="reviewText" placeholder="Tell us about your stay…" rows="3"></textarea>
+        <button class="btn-gold" onclick="submitReview()">Submit Review</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="location-section" id="location">
+    <div class="location-content">
+      <div class="location-info">
+        <p class="section-eyebrow">Find Us</p>
+        <h2 class="section-title">Prime <em>Location</em></h2>
+        <div class="location-details">
+          <div class="loc-item">
+            <span class="loc-icon">📍</span>
+            <div>
+              <strong>Address</strong>
+              <p>1 Golden Avenue, Manhattan<br/>New York, NY 10001, USA</p>
+            </div>
+          </div>
+          <div class="loc-item">
+            <span class="loc-icon">✈️</span>
+            <div>
+              <strong>From Airport</strong>
+              <p>JFK — 35 min by car<br/>Newark — 40 min by car</p>
+            </div>
+          </div>
+          <div class="loc-item">
+            <span class="loc-icon">🚇</span>
+            <div>
+              <strong>Nearest Metro</strong>
+              <p>5th Ave / 53rd St — 2 min walk<br/>Lines: E, M</p>
+            </div>
+          </div>
+          <div class="loc-item">
+            <span class="loc-icon">📞</span>
+            <div>
+              <strong>Reservations</strong>
+              <p>+1 (800) AURUM-NY<br/>concierge@aurumpalace.com</p>
+            </div>
+          </div>
+        </div>
+        <a href="https://maps.google.com" target="_blank" class="btn-gold">Get Directions</a>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.2412648750455!2d-73.97731492404069!3d40.75931423541557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258f9b0c07a53%3A0x6b8df3e2f58a7f84!2sFifth%20Avenue%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1699000000000!5m2!1sen!2sus"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:12px;">
+          <span class="logo-mark">✦</span>
+          <span class="logo-text">AURUM <em>Palace</em></span>
+        </div>
+        <p>Where luxury becomes legend.<br/>Since 1924.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="#rooms">Rooms & Suites</a>
+        <a href="#restaurant">Fine Dining</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#booking">Reservations</a>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <a href="#">Spa & Wellness</a>
+        <a href="#">Events & Weddings</a>
+        <a href="#">Business Centre</a>
+        <a href="#">Concierge</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <a href="#">+1 (800) AURUM-NY</a>
+        <a href="#">concierge@aurumpalace.com</a>
+        <a href="#">1 Golden Ave, NYC</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Aurum Palace. All rights reserved.</p>
+      <p>Crafted with ✦ for discerning guests</p>
+    </div>
+  </footer>
+
+  <!-- BOOKING MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+  <div class="modal" id="bookingModal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-inner">
+      <div class="lightbox-img" id="lightboxImg"></div>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
